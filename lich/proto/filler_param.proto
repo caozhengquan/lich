@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package lich;
+
+message FillerParameter {
+  string type = 1; // Default is constant filler.
+  float value = 2;
+  float min = 3;
+  float max = 4;
+  float mean = 5;
+  float std = 6;
+};

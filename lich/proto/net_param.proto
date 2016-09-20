@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "lich/proto/layer_param.proto";
+
+package lich;
+
+message NetParameter {
+  string name = 1;
+  Phase phase = 2;
+  repeated LayerParameter layer = 3;
+};

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+import "lich/proto/filler_param.proto";
+
+package lich;
+
+message DenseParameter {
+  uint32 num_output = 1; 
+  bool bias_term = 2;
+  FillerParameter weight_filler = 3; // The filler for the weight
+  FillerParameter bias_filler = 4; // The filler for the bias
+
+  int32 axis = 5;
+};
+
+message SoftmaxParameter {
+  int32 axis = 1;
+};
+
+message EmbeddingParameter {
+  int32 input_dim = 1;
+  int32 embed_dim = 2;
+  FillerParameter weight_filler = 3; 
+};
+
+message DataParameter {
+  string source = 1;
+  int32 batch_size = 2;
+  repeated int32 output_dim = 3;
+}
+
+enum Phase {
+  BOTH = 0;
+  TRAIN = 1;
+  TEST = 2;
+};
+
+message ParamSpec {
+  string name = 1;
+  float lr_mult = 2;
+  float decay_mult = 3;
+};
+
+message LayerParameter {
+  string name = 1;
+  string type = 2;
+  repeated string bottom = 3;
+  repeated string top = 4;
+  repeated float loss_weight = 5;
+  repeated ParamSpec param = 6;
+  Phase phase = 7;
+  
+  DenseParameter dense_param = 100;
+  DataParameter data_param = 101;
+  SoftmaxParameter softmax_param = 102;
+  EmbeddingParameter embedding_param = 103;
+};
+

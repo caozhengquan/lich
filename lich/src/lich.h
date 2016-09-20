@@ -1,0 +1,6 @@
+#include "lich/src/net.h"
+#include "lich/src/solvers/sgd_solver.h"
+#include "lich/src/layer_param_builder.h"
+#include "lich/src/solver_param_builder.h"
+#include "lich/proto/filler_param.pb.h"
+#include "lich/proto/layer_param.pb.h"

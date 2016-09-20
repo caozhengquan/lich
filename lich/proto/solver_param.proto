@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package lich;
+
+message SolverParameter {
+  float base_lr = 1;
+  int32 max_iter = 2
+  int32 iter_size = 3;
+  string type = 4;
+  string regularization_type = 5; // Must be "L1" or "L2"
+  float weight_decay = 6;
+  float momentum = 7;
+};
