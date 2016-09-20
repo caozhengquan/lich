@@ -34,3 +34,6 @@ build/
 
 # vs code configure
 .vscode/
+
+# Include thirdparty libs
+!thirdparty/**
