@@ -32,8 +32,8 @@
 cmake/
 build/
 
+# Thirdparty directories
+thirdparty/
+
 # vs code configure
 .vscode/
-
-# Include thirdparty libs
-!thirdparty/**
