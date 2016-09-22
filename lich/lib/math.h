@@ -28,7 +28,7 @@ void lich_gemm(const CBLAS_TRANSPOSE TransA, const CBLAS_TRANSPOSE TransB,
                const Dtype beta, Dtype* C);
 
 // y = alpha * A * x + beta * y;
-// A: M * N, x: M * 1, y: M * 1
+// A: M * N, x: N * 1, y: M * 1
 template <typename Dtype>
 void lich_gemv(const CBLAS_TRANSPOSE TransA, const int M, const int N,
                const Dtype alpha, const Dtype* A, const Dtype* x,

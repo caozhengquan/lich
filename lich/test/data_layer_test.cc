@@ -16,7 +16,7 @@ class DataLayerTest : public ::testing::Test {
         label_tensor_(new Tensor<Dtype>()) {
     top_tensor_vec_.push_back(data_tensor_);
     top_tensor_vec_.push_back(label_tensor_);
-    layer_param_ = LayerParamBuilder().type("Data")
+    layer_param_ = LayerParameterBuilder().type("Data")
                    .top({"data", "label"})
                    .data_param("../lich/test/dummy_data.txt", 2, {4, 1})
                    .Build();
@@ -35,7 +35,7 @@ class DataLayerTest : public ::testing::Test {
 TYPED_TEST_CASE(DataLayerTest, TestDtypes);
 TYPED_TEST(DataLayerTest, TestForward) {
   shared_ptr<Layer<TypeParam>> layer(
-      LayerRegistry<Dtype>::Global()->CreateLayer(this->layer_param_));
+      LayerRegistry<TypeParam>::Global()->CreateLayer(this->layer_param_));
   layer->SetUp(this->top_tensor_vec_, this->top_tensor_vec_);
   for (int k = 0; k < 2; ++k) {
     layer->Forward(this->top_tensor_vec_, this->top_tensor_vec_);

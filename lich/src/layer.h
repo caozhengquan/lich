@@ -29,7 +29,7 @@ class Layer {
   Dtype Forward(const vector<Tensor<Dtype>*>& bottom,
                 const vector<Tensor<Dtype>*>& top);
   
-  void BackWard(const vector<Tensor<Dtype>*>& top,
+  void Backward(const vector<Tensor<Dtype>*>& top,
                 const vector<Tensor<Dtype>*>& bottom);
   
   // Get and Set function for loss_weight_
@@ -114,7 +114,7 @@ Dtype Layer<Dtype>::Forward(const vector<Tensor<Dtype>*>& bottom,
 }
 
 template <typename Dtype>
-void Layer<Dtype>::BackWard(const vector<Tensor<Dtype>*>& top,
+void Layer<Dtype>::Backward(const vector<Tensor<Dtype>*>& top,
                             const vector<Tensor<Dtype>*>& bottom) {
   BackwardCpu(top, bottom);                                
 }

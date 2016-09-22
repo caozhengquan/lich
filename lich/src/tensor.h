@@ -26,7 +26,7 @@ class Tensor {
   int count() const { return count_; }
   int count(int start_axis, int end_axis) const {
     CHECK_GE(start_axis, 0);
-    CHECK_LT(start_axis, num_axes());
+    CHECK_LE(start_axis, num_axes());
     CHECK_GE(end_axis, start_axis);
     CHECK_LE(end_axis, num_axes());
     int count = 1;

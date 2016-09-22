@@ -7,25 +7,27 @@
 
 namespace lich {
 
+template <typename Dtype>
 class SoftmaxCrossEntropyLossLayer : public Layer<Dtype> {
  public:
   SoftmaxCrossEntropyLossLayer(const LayerParameter& param)
-      : Layer<Dtype>(param),
-        softmax_layer_(new SoftmaxLayer<Dtype>(param)),
-        softmax_output_(new Tensor<Dtype>()) {}
- 
+      : Layer<Dtype>(param) {
+    softmax_layer_.reset(new SoftmaxLayer<Dtype>(param));
+    softmax_output_.reset(new Tensor<Dtype>());
+  }
+  
+  virtual void LayerSetUp(const vector<Tensor<Dtype>*>& bottom,
+                          const vector<Tensor<Dtype>*>& top) override;
+
+  virtual void Reshape(const vector<Tensor<Dtype>*>& bottom,
+                       const vector<Tensor<Dtype>*>& top) override;
+
  protected:
   shared_ptr<Tensor<Dtype>> softmax_output_;
   shared_ptr<SoftmaxLayer<Dtype>> softmax_layer_;
   vector<Tensor<Dtype>*> softmax_bottom_vec_;
   vector<Tensor<Dtype>*> softmax_top_vec_;
   int softmax_axis_, outer_num_, inner_num_, dim_;
-
-  virtual void LayerSetUp(const vector<Tensor<Dtype>*>& bottom,
-                          const vector<Tensor<Dtype>*>& top) override;
-
-  virtual void Reshape(const vector<Tensor<Dtype>*>& bottom,
-                       const vector<Tensor<Dtype>*>& top) override;
 
   virtual void ForwardCpu(const vector<Tensor<Dtype>*>& bottom,
                           const vector<Tensor<Dtype>*>& top) override;

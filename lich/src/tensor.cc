@@ -21,8 +21,10 @@ void Tensor<Dtype>::Reshape(const std::vector<int>& shape) {
     if (count_ > capacity_) {
         capacity_ = count_;
         // TODO(wzpfish): Delay Allocating the memory.
-        data_.reset(new Dtype[sizeof(Dtype) * capacity_]);
-        diff_.reset(new Dtype[sizeof(Dtype) * capacity_]);
+        // new Dtype(size)() use zero initialize
+        // new Dtype[size]   use default initialized (ie nothing happens)
+        data_.reset(new Dtype[capacity_]());
+        diff_.reset(new Dtype[capacity_]());
     }
 }
 

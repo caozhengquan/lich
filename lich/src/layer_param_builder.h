@@ -8,7 +8,6 @@
 
 namespace lich {
 
-template <typename Dtype>
 class FillerParameterBuilder {
  public:
   FillerParameterBuilder() {}
@@ -49,10 +48,9 @@ class FillerParameterBuilder {
   FillerParameter filler_param_;
 };
 
-template <typename Dtype>
 class LayerParameterBuilder {
  public:
-  LayerParameter() {}
+  LayerParameterBuilder() {}
   
   LayerParameterBuilder& name(string name) {
     layer_param_.set_name(name);
@@ -116,7 +114,7 @@ class LayerParameterBuilder {
     return *this;
   }
 
-  LayerParameterBuilder Build() {
+  LayerParameter Build() {
     return layer_param_;
   }
 

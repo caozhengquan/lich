@@ -11,6 +11,8 @@ class SoftmaxLayer : public Layer<Dtype> {
  public:
   explicit SoftmaxLayer(const LayerParameter& param) : Layer<Dtype>(param) {}
 
+  virtual void Reshape(const vector<Tensor<Dtype>*>& bottom,
+                       const vector<Tensor<Dtype>*>& top) override;
  protected:
   // For example, if the shape of bottom data is N * C * W * H and 
   // softmax_axis_ is 1. Then we do softmax for every point in W * H
@@ -27,8 +29,6 @@ class SoftmaxLayer : public Layer<Dtype> {
   Tensor<Dtype> scale_data_;
   // multiplier is a matrix full of 1
   Tensor<Dtype> multiplier_;
-  virtual void Reshape(const vector<Tensor<Dtype>*>& bottom,
-                       const vector<Tensor<Dtype>*>& top) override;
 
   virtual void ForwardCpu(const vector<Tensor<Dtype>*>& bottom,
                           const vector<Tensor<Dtype>*>& top) override;

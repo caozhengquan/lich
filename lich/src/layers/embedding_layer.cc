@@ -29,6 +29,7 @@ void EmbeddingLayer<Dtype>::ForwardCpu(const vector<Tensor<Dtype>*>& bottom,
   const Dtype* weight = this->tensors_[0]->data();
   const Dtype* bottom_data = bottom[0]->data();
   Dtype* top_data = top[0]->mutable_data();
+  // Forward just copy the corresponding embedding to top data.
   for (int i = 0; i < count; ++i) {
     int embed_idx = bottom_data[i];
     lich_copy(embed_dim_, weight + embed_idx * embed_dim_, 
@@ -46,8 +47,8 @@ void EmbeddingLayer<Dtype>::BackwardCpu(const vector<Tensor<Dtype>*>& top,
   for (int i = 0; i < count; ++i) {
     // Update weight gradient: gradient = bottom_data * delta(l+1)
     int embed_idx = bottom_data[i];
-    lich_axpy(embed_dim_, Dtype(1), top_diff + i * embed_dim_,
-              weight_diff + embed_idx * embed_dim_);
+    lich_axpy<Dtype>(embed_dim_, Dtype(1), top_diff + i * embed_dim_,
+                     weight_diff + embed_idx * embed_dim_);
   }
 }
 

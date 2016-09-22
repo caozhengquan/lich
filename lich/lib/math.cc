@@ -65,15 +65,13 @@ template <>
 void lich_gemv(const CBLAS_TRANSPOSE TransA, const int M, const int N,
                const float alpha, const float* A, const float* x,
                const float beta, float* y) {
-  const int lda = (TransA == CblasNoTrans) ? N : M;
-  cblas_sgemv(CblasRowMajor, TransA, M, N, alpha, A, lda, x, 1, beta, y, 1);
+  cblas_sgemv(CblasRowMajor, TransA, M, N, alpha, A, N, x, 1, beta, y, 1);
 }
 template <>
 void lich_gemv(const CBLAS_TRANSPOSE TransA, const int M, const int N,
                const double alpha, const double* A, const double* x,
                const double beta, double* y) {
-  const int lda = (TransA == CblasNoTrans) ? N : M;
-  cblas_dgemv(CblasRowMajor, TransA, M, N, alpha, A, lda, x, 1, beta, y, 1);
+  cblas_dgemv(CblasRowMajor, TransA, M, N, alpha, A, N, x, 1, beta, y, 1);
 }
 
 template <typename Dtype>
@@ -151,7 +149,7 @@ template void lich_sign<double>(const int N, const double* X, double* Y);
 template <typename Dtype>
 void lich_copy(const int N, const Dtype* X, Dtype* Y) {
   if (X == Y) return;
-  std::memcpy(Y, X, N);
+  std::memcpy(Y, X, N * sizeof(Dtype));
 }
 
 template void lich_copy<int>(const int N, const int* X, int* Y);

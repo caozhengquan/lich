@@ -78,6 +78,8 @@ Filler<Dtype>* Filler<Dtype>::GetFiller(const FillerParameter& filler_param) {
   else {
     CHECK(false) << "Filler type '" << type << "' not exisit";
   }
+  // Just to remove compile warning.
+  return nullptr;
 }
 
 } // namespace lich 
